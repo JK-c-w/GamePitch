@@ -1,0 +1,15 @@
+{
+  "name": "chess-platform",
+  "private": true,
+  "version": "0.1.0",
+  "workspaces": ["packages/*", "apps/*"],
+  "engines": { "node": ">=20.11" },
+  "scripts": {
+    "build:shared": "npm run build -w @chess/shared",
+    "dev:server": "npm run build:shared && npm run start:dev -w @chess/server",
+    "dev:web": "npm run build:shared && npm run dev -w @chess/web",
+    "build": "npm run build:shared && npm run build -w @chess/server && npm run build -w @chess/web",
+    "infra:up": "docker compose up -d",
+    "infra:down": "docker compose down"
+  }
+}

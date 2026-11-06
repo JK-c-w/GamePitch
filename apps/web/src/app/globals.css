@@ -1,0 +1,77 @@
+@import 'tailwindcss';
+
+/*
+  Design tokens.
+  Palette ("slate board at night"): deep navy surfaces, steel-blue board, brass accent for
+  "your move" moments, coral reserved for check/danger. Components only use these tokens,
+  so the light theme is just a second set of values.
+*/
+:root {
+  --bg: #0a0f1c;
+  --surface: #121a2b;
+  --surface-2: #19233a;
+  --line: #26334f;
+  --text: #e8edf6;
+  --text-dim: #93a0b8;
+  --accent: #d6a94e;
+  --accent-ink: #1a1305;
+  --danger: #ef5a50;
+  --ok: #4fc08d;
+  --sq-light: #c8d3de;
+  --sq-dark: #587892;
+  --sq-last: rgba(214, 169, 78, 0.42);
+  --sq-select: rgba(214, 169, 78, 0.65);
+  --sq-check: rgba(239, 90, 80, 0.75);
+  color-scheme: dark;
+}
+
+[data-theme='light'] {
+  --bg: #f1f4f9;
+  --surface: #ffffff;
+  --surface-2: #e8edf5;
+  --line: #d3dbe8;
+  --text: #121a2b;
+  --text-dim: #566178;
+  --accent: #a67a1f;
+  --accent-ink: #ffffff;
+  --sq-light: #e3e9f0;
+  --sq-dark: #7f9db5;
+  color-scheme: light;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-line: var(--line);
+  --color-ink: var(--text);
+  --color-dim: var(--text-dim);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-danger: var(--danger);
+  --color-ok: var(--ok);
+  --font-sans: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+}
+
+html, body { background: var(--bg); color: var(--text); }
+body { font-family: var(--font-body), system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+
+/* Clocks and ratings must not jitter as digits change. */
+.tabular { font-variant-numeric: tabular-nums; }
+
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+/* Piece colours + board motion helpers (Phase 2) */
+:root { --pc-white: #f7f4ea; --pc-black: #10131c; }
+.piece-w { color: var(--pc-white); text-shadow: 0 0 2px #000, 0 0 2px #000, 0 1px 3px rgba(0,0,0,.55); }
+.piece-b { color: var(--pc-black); text-shadow: 0 0 1px rgba(255,255,255,.55), 0 1px 2px rgba(255,255,255,.25); }
+.piece-glyph { font-family: 'Segoe UI Symbol', 'Noto Sans Symbols 2', 'Apple Symbols', serif; line-height: 1; }
+@keyframes dot-in { from { transform: scale(0.3); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+.dot-in { animation: dot-in 0.16s ease-out; }
+@keyframes check-pulse { 50% { opacity: 0.55; } }
+.check-pulse { animation: check-pulse 1.2s ease-in-out infinite; }
